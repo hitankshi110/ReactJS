@@ -1,31 +1,41 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function DispData(props) {
-    let getData=localStorage.getItem('userData');
-    let Data=JSON.parse(getData);
-    const deleteData=()=>{
-        localStorage.removeItem('userData');
-        console.log('Data deleted !');
-    }
-    return (
-        <div>
-            <table border={1}>
-                <tr>
-                    <td>Name</td>
-                    <td>Email</td>
-                    <td>Password</td>
-                    <td>Action</td>
-                </tr>
-                <tr>
-                    <td>{(Data)?Data.name:''}</td>
-                    <td>{(Data)?Data.email:''}</td>
-                    <td>{(Data)?Data.password:''}</td>
-                    <td><button type='button' onClick={deleteData}>Delete</button></td>
+    const navigate=useNavigate();
+    let dispData=localStorage.getItem('formData');
+    let Data=JSON.parse(dispData);  
 
+    const deleteData=(id)=>{
+        Data.splice(id,1);
+        localStorage.removeItem('formData');
+        console.log('Data deleted !');
+        navigate("/DispData",{replace : true});
+    };
+    return(
+    <div>
+        <center><h3>Form Data Table</h3></center>
+        <center><table border={2} className='datatable'>
+            <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Action</th>
                 </tr>
-            </table>
-            
-        </div>
+               {Data.map((i,index) => {
+        return(
+            <tr>
+                    <td>{i.firstname}</td>
+                    <td>{i.lastname}</td>
+                    <td>{i.email}</td>
+                    <td>{i.password}</td>
+                    <td><button type='button' onClick={()=>deleteData(index)}>Delete</button></td>
+                </tr>   
+        );
+        })}
+         </table></center>
+         </div>
     );
 }
 
