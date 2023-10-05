@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import React from 'react';
+// import logo from './logo.svg';
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import './App.css';
+import Home from './Home';
+import Contact from './Contact';
+import About from './About';
+import Header from './Header';
+import Form from './NavigationForm/Form';
+import DispData from './NavigationForm/DispData';
+import Routerpractice from './Routerpractise/Routerpractice';
+import Display from './Routerpractise/Display';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          React Js.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-         Click Here - Learn ReactJs.
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Header no={151} />
+    <Routes>
+    <Route exact path='/' element={<Home />}/>
+      <Route path='/contact/:no' element={<Contact />} />
+      <Route path='/about/:id' element={<About />} />
+      <Route path='/form' element={<Form />} />
+      <Route  path='/DispData' element={<DispData />}/>
+      <Route  path='/RouterPractice' element={<Routerpractice />}/>
+      <Route  path='/Display' element={<Display />}/>
+
+
+      
+      </Routes>
+    </BrowserRouter>
+
   );
 }
 
